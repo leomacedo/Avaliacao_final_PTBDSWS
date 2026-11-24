@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Avaliação semestral{% endblock %}
+{% block styles %}
+{{ super() }}
+<style>
+body { font-family: Arial, sans-serif; color: #222; }
+.navbar { border-radius: 0; }
+.page-wrap { padding-top: 12px; }
+.form-disciplina .form-control { width: 100%; }
+.form-disciplina .radio { margin-top: 7px; margin-bottom: 7px; }
+.form-disciplina .radio label { padding-left: 0; font-weight: normal; }
+.form-disciplina .radio input[type=radio] { margin-left: 0; position: static; margin-right: 7px; }
+.form-disciplina .btn { margin-top: 5px; }
+.section-title { margin-top: 20px; margin-bottom: 12px; }
+.clock { color: #777; text-align: right; font-size: 12px; margin-bottom: 8px; }
+.table>thead>tr>th { border-bottom: 2px solid #ddd; }
+</style>
+{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header"><a class="navbar-brand" href="{{ url_for('main.index') }}">Avaliação semestral</a></div>
+        <ul class="nav navbar-nav">
+            <li><a href="/professores">Cadastro de Professores</a></li>
+            <li><a href="{{ url_for('main.disciplinas') }}">Cadastro de Disciplinas</a></li>
+            <li><a href="/alunos">Cadastro de Alunos</a></li>
+            <li><a href="/cursos">Cadastro de Cursos</a></li>
+            <li><a href="/ocorrencias">Cadastro de Ocorrências</a></li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="container page-wrap">
+    {% for categoria, mensagem in get_flashed_messages(with_categories=true) %}
+    <div class="alert alert-{{ categoria }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+        {{ mensagem }}
+    </div>
+    {% endfor %}
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}

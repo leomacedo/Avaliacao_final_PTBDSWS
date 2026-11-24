@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block page_content %}
+<div class="clock">Data e hora local (Brasília): {{ data_hora }}</div>
+<form method="POST" class="form-disciplina">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.nome.label }}
+        {{ form.nome(class="form-control", autofocus=true) }}
+        {% for erro in form.nome.errors %}<div class="text-danger">{{ erro }}</div>{% endfor %}
+    </div>
+    <div class="form-group">
+        {% for opcao in form.semestre %}
+        <div class="radio"><label>{{ opcao() }} {{ opcao.label.text }}</label></div>
+        {% endfor %}
+        {% for erro in form.semestre.errors %}<div class="text-danger">{{ erro }}</div>{% endfor %}
+    </div>
+    {{ form.submit(class="btn btn-default") }}
+</form>
+<h2 class="section-title">Relação de disciplinas cadastradas</h2>
+<table class="table">
+    <thead><tr><th style="width:50%">Disciplina</th><th>Semestre</th></tr></thead>
+    <tbody>
+    {% for disciplina in disciplinas %}
+    <tr><td>{{ disciplina.nome }}</td><td>{{ disciplina.semestre }}º semestre</td></tr>
+    {% else %}
+    <tr><td colspan="2">Nenhuma disciplina cadastrada.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
